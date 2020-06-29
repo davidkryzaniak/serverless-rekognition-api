@@ -1,0 +1,10 @@
+{
+  "name": "serverless-rekognition-api",
+  "version": "1.0.0",
+  "description": "Just a simple template for setting up an API Gateway/Lambda function that passes an image to Rekognition",
+  "main": "index.js",
+  "author": "davidkryzaniak",
+  "dependencies": {
+    "aws-sdk": "^2.704.0"
+  }
+}
