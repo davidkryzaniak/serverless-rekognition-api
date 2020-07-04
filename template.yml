@@ -1,25 +1,40 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Resources:
+
+  ApiGatewayEndpoint:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: Prod
+      Auth:
+        ApiKeyRequired: true
+        UsagePlan:
+          CreateUsagePlan: PER_API
+          UsagePlanName: GatewayAuthorization
+
   ServerlessFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Policies:
-        - AmazonRekognitionFullAccess
       Handler: index.handler
       Runtime: nodejs12.x
       CodeUri: .
       Description:
       MemorySize: 128
       Timeout: 30
+      Policies:
+        - AmazonRekognitionFullAccess
       Events:
-        HttpApiPost:
+        HttpApiRequest:
           Type: Api
           Properties:
             Path: /
             Method: post
+            RestApiId:
+              Ref: ApiGatewayEndpoint
 
 Outputs:
   URL:
-    Description: "API endpoint"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${ApiGatewayEndpoint}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  Access:
+    Description: "(Request HEADER 'x-api-key') You can find your API Key in the AWS console:"
+    Value: !Sub "https://console.aws.amazon.com/apigateway/home?region=${AWS::Region}#/api-keys/${ApiGatewayEndpointApiKey}"
