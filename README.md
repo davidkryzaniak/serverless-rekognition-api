@@ -7,7 +7,7 @@ Just a simple API that takes an image, runs it through the AWS Rekognition servi
 - `npm install`
 - `sam deploy --guided`
 
-The API Gateway that is created will be in the displayed in the sam deploy output along with the link to get an API Key (which must be included in the request header as "x-api-key"). Base64 encode your JPG image (current limitation) and POST it in the body of the request to your new endpoint.
+The API Gateway that is created will be in the displayed in the sam deploy output along with the link to get an API Key (which must be included in the request header as "x-api-key"). Base64 encode your image and POST it in the body of the request to your new endpoint.
 
 ## Results
 <a href="https://www.flickr.com/photos/dave_kz/28223945764/in/datetaken/"><img src="https://live.staticflickr.com/8860/28223945764_abcf711503_z.jpg" width="640" height="427" alt="IMSA SportsCar Championship race at Road America"></a>
